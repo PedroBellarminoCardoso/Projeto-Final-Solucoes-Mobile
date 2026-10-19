@@ -1,50 +1,53 @@
-# Projeto Final — Soluções Mobile
+# Projeto Final de Soluções Mobile
 
 ## Introdução
 
-O projeto final da disciplina de Soluções Mobile tem como objetivo desenvolver uma aplicação mobile capaz de solucionar um problema real, utilizando conhecimentos de programação, banco de dados, front-end, back-end e engenharia de software. O desenvolvimento será realizado em equipe, utilizando metodologias ágeis, como Scrum, e priorizando a entrega de um MVP (Produto Mínimo Viável).
+Este repositório contém o desenvolvimento do projeto final da disciplina de **Soluções Mobile**, cujo objetivo é criar uma aplicação mobile capaz de solucionar um problema real por meio da integração entre front-end, back-end e banco de dados.
+
+O projeto será desenvolvido em equipe, aplicando conceitos de engenharia de software, engenharia de requisitos e metodologias ágeis, como Scrum, com foco na entrega de um **MVP (Produto Mínimo Viável)**.
 
 ## Integrantes
 
-- **Pedro Bellarmino Cardoso @pedrobellarminocardoso
-- **Leornardo @Leogames
-- **Integrante 3:** Nome
-- **Integrante 4:** Nome
+- **Pedro Bellarmino Cardoso** — [@pedrobellarminocardoso](https://github.com/pedrobellarminocardoso)
+- **Leonardo** — [@Leogames](https://github.com/Leogames)
+- **Integrante 3** — Nome e usuário do GitHub
+- **Integrante 4** — Nome e usuário do GitHub
 
-## Cadê Meu Dinheiro?
+## Sobre o Projeto
 
-**Controle Financeiro para Estudantes**
-
-### Sobre o Projeto
-
-O **Cadê Meu Dinheiro?** é um aplicativo mobile desenvolvido para ajudar estudantes a organizar suas finanças pessoais, controlar receitas e despesas e compreender como o dinheiro é utilizado ao longo do mês.
+O **Cadê Meu Dinheiro?** é um aplicativo mobile de controle financeiro pessoal desenvolvido com foco em estudantes que desejam organizar suas finanças, acompanhar seus gastos e entender melhor como utilizam o dinheiro ao longo do mês.
 
 ### Problema Identificado
 
-Muitos estudantes enfrentam dificuldades para controlar seus gastos, principalmente pequenas despesas recorrentes que, acumuladas, podem comprometer o orçamento mensal.
+Muitos estudantes enfrentam dificuldades para administrar o próprio dinheiro, especialmente devido a pequenas despesas recorrentes que, quando acumuladas, podem comprometer o orçamento mensal. A falta de organização e de acompanhamento dos gastos dificulta o planejamento financeiro.
 
 ### Solução Proposta
 
-O aplicativo oferecerá uma plataforma simples e intuitiva para registrar movimentações financeiras, categorizar despesas e acompanhar o orçamento mensal, facilitando o planejamento financeiro dos usuários.
+O aplicativo oferecerá uma interface simples e intuitiva para registrar receitas e despesas, categorizar movimentações financeiras e definir limites de gastos. Dessa forma, os usuários poderão acompanhar sua situação financeira e tomar decisões mais conscientes.
 
-### Funcionalidades
+## Funcionalidades
 
-- **Cadastro de receitas e despesas:** registro das movimentações financeiras.
-- **Categorias de gastos:** organização das despesas por tipo.
-- **Orçamento mensal:** definição de limites de gastos.
-- **Alertas:** notificações sobre limites de orçamento.
-- **Gráficos:** visualização de receitas e despesas.
-- **Filtros e relatórios:** análise dos gastos por período e categoria.
-- **Controle de acesso:** login e autenticação de usuários.
+- **Registro financeiro:** cadastro de receitas e despesas.
+- **Categorias:** organização dos gastos por tipo.
+- **Orçamento mensal:** definição e acompanhamento de limites financeiros.
+- **Alertas:** notificações sobre limites de gastos.
+- **Gráficos:** visualização das receitas e despesas.
+- **Filtros e relatórios:** análise das movimentações por período e categoria.
+- **Autenticação:** login e controle de acesso dos usuários.
 
-### Tecnologias Previstas
+## Tecnologias Previstas
 
-- **Front-end Mobile:** React Native com Expo.
-- **Back-end:** API para processamento e gerenciamento dos dados.
-- **Banco de Dados:** armazenamento persistente das informações.
+- **Mobile:** React Native com Expo.
+- **Front-end:** desenvolvimento das interfaces e experiência do usuário.
+- **Back-end:** API para processamento e gerenciamento das informações.
+- **Banco de dados:** armazenamento persistente dos dados financeiros.
 - **Versionamento:** Git e GitHub.
-- **Metodologia:** Scrum.
+- **Metodologia ágil:** Scrum.
 
-### Status do Projeto
+## Objetivo
+
+Desenvolver um MVP funcional que ofereça os recursos essenciais para o controle financeiro pessoal, priorizando a usabilidade, a segurança dos dados e a integração entre as diferentes tecnologias utilizadas.
+
+## Status do Projeto
 
 **Em desenvolvimento.**
