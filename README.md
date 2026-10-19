@@ -6,8 +6,8 @@ O projeto final da disciplina de Soluções Mobile tem como objetivo desenvolver
 
 ## Integrantes
 
-- **Integrante 1:** Nome
-- **Integrante 2:** Nome
+- **Pedro Bellarmino Cardoso @pedrobellarminocardoso
+- **Leornardo @Leogames
 - **Integrante 3:** Nome
 - **Integrante 4:** Nome
 
@@ -44,10 +44,6 @@ O aplicativo oferecerá uma plataforma simples e intuitiva para registrar movime
 - **Banco de Dados:** armazenamento persistente das informações.
 - **Versionamento:** Git e GitHub.
 - **Metodologia:** Scrum.
-
-### Objetivo
-
-Desenvolver um MVP que ofereça as funcionalidades essenciais para o controle financeiro dos estudantes, priorizando a facilidade de uso, a segurança das informações e a integração entre front-end, back-end e banco de dados.
 
 ### Status do Projeto
 
