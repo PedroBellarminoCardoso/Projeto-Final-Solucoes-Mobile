@@ -11,7 +11,7 @@ O projeto final da disciplina de Soluções Mobile tem como objetivo desenvolver
 - **Integrante 3:** Nome
 - **Integrante 4:** Nome
 
-## Nosso Projeto: Cadê Meu Dinheiro?
+## Cadê Meu Dinheiro?
 
 **Controle Financeiro para Estudantes**
 
@@ -48,7 +48,3 @@ O aplicativo oferecerá uma plataforma simples e intuitiva para registrar movime
 ### Status do Projeto
 
 **Em desenvolvimento.**
-
----
-
-*Projeto acadêmico desenvolvido para a disciplina de Soluções Mobile.*
