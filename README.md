@@ -9,7 +9,7 @@ O projeto será desenvolvido em equipe, aplicando conceitos de engenharia de sof
 ## Integrantes
 
 - **Pedro Bellarmino Cardoso** — [@pedrobellarminocardoso](https://github.com/pedrobellarminocardoso)
-- **Leonardo** — [@Leogames](https://github.com/Leogames)
+- **Leonardo da Cruz Ramos** — [@Leogames](https://github.com/leoleojogos) 
 - **Integrante 3** — Nome e usuário do GitHub
 - **Integrante 4** — Nome e usuário do GitHub
 
