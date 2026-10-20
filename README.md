@@ -1,5 +1,23 @@
 # Projeto Final de Soluções Mobile
 
+# Cadê Meu Dinheiro?
+
+Aplicativo mobile de controle financeiro pessoal desenvolvido como projeto final da disciplina de **Soluções Mobile**.
+
+## Índice
+
+- [Introdução](#introdução)
+- [Integrantes](#integrantes)
+- [Sobre o Projeto](#sobre-o-projeto)
+  - [Problema Identificado](#problema-identificado)
+  - [Solução Proposta](#solução-proposta)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias Previstas](#tecnologias-previstas)
+- [Objetivo](#objetivo)
+- [Status do Projeto](#status-do-projeto)
+
+---
+
 ## Introdução
 
 Este repositório contém o desenvolvimento do projeto final da disciplina de **Soluções Mobile**, cujo objetivo é criar uma aplicação mobile capaz de solucionar um problema real por meio da integração entre front-end, back-end e banco de dados.
@@ -8,10 +26,14 @@ O projeto será desenvolvido em equipe, aplicando conceitos de engenharia de sof
 
 ## Integrantes
 
-|| Pedro Bellarmino Cardoso** — [@pedrobellarminocardoso](https://github.com/pedrobellarminocardoso) ||
-- **Leonardo da Cruz Ramos** — [@Leogames](https://github.com/leoleojogos) 
-- **Integrante 3** — Nome e usuário do GitHub
-- **Integrante 4** — Nome e usuário do GitHub
+| Integrante | GitHub |
+|---|---|
+| Pedro Bellarmino Cardoso | [@pedrobellarminocardoso](https://github.com/pedrobellarminocardoso) |
+| Leonardo da Cruz Ramos | [@Leogames](https://github.com/leoleojogos) |
+| Integrante 3 — Nome completo | [@usuario](https://github.com/usuario) |
+| Integrante 4 — Nome completo | [@usuario](https://github.com/usuario) |
+
+> Substitua os nomes e links dos integrantes 3 e 4 pelos dados corretos da equipe.
 
 ## Sobre o Projeto
 
