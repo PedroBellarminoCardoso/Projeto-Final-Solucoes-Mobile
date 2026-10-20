@@ -33,7 +33,6 @@ O projeto será desenvolvido em equipe, aplicando conceitos de engenharia de sof
 | Integrante 3 — Nome completo | [@usuario](https://github.com/usuario) |
 | Integrante 4 — Nome completo | [@usuario](https://github.com/usuario) |
 
-> Substitua os nomes e links dos integrantes 3 e 4 pelos dados corretos da equipe.
 
 ## Sobre o Projeto
 
