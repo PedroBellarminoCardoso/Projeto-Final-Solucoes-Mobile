@@ -31,7 +31,7 @@ O projeto será desenvolvido em equipe, aplicando conceitos de engenharia de sof
 | Pedro Bellarmino Cardoso | [@pedrobellarminocardoso](https://github.com/pedrobellarminocardoso) |
 | Leonardo da Cruz Ramos | [@Leogames](https://github.com/leoleojogos) |
 | Lara da Rosa Reck | [@laraareck](https://github.com/laraareck) |
-| Integrante 4 — Nome completo | [@usuario](https://github.com/usuario) |
+| Deivyd Charles Souza de Negreiros | [@DeivydCharles](https://github.com/DeivydCharles) |
 
 
 ## Sobre o Projeto
