@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Cadê Meu Dinheiro?",
+    "slug": "cade-meu-dinheiro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F5F7FB"
+    },
+    "android": {
+      "package": "com.exemplo.cademeudinheiro"
+    },
+    "ios": {
+      "bundleIdentifier": "com.exemplo.cademeudinheiro"
+    }
+  }
+}

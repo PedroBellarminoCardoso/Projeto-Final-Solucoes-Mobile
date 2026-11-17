@@ -1,0 +1,12 @@
+# Dependências
+node_modules/
+
+# Expo
+.expo/
+
+# Arquivos temporários
+dist/
+build/
+
+# Configurações locais
+.env
