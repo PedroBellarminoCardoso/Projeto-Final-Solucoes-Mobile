@@ -134,3 +134,8 @@ BEGIN
   RETURN NEW;
 END;
 $$;
+
+
+CREATE TRIGGER trg_orc_cat_valida_categoria
+  BEFORE INSERT OR UPDATE OF orcamento_id, categoria_id ON orcamentos_categoria
+  FOR EACH ROW EXECUTE FUNCTION fn_validar_categoria_orcamento();
