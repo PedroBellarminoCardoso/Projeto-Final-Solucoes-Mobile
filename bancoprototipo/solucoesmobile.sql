@@ -100,3 +100,17 @@ CREATE TRIGGER trg_transacoes_atualizado BEFORE UPDATE ON transacoes
   FOR EACH ROW EXECUTE FUNCTION fn_atualizar_timestamp();
 CREATE TRIGGER trg_orcamentos_atualizado BEFORE UPDATE ON orcamentos_mensais
   FOR EACH ROW EXECUTE FUNCTION fn_atualizar_timestamp();
+
+CREATE FUNCTION fn_validar_categoria_transacao() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_dono INTEGER;
+BEGIN
+  SELECT usuario_id INTO v_dono FROM categorias WHERE id = NEW.categoria_id;
+  IF v_dono IS NOT NULL AND v_dono <> NEW.usuario_id THEN
+    RAISE EXCEPTION 'Categoria % não pertence ao usuário %', NEW.categoria_id, NEW.usuario_id
+      USING ERRCODE = 'check_violation';
+  END IF;
+  RETURN NEW;
+END;
+$$;
