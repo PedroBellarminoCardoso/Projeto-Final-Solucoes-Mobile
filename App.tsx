@@ -7,6 +7,8 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
 import { FinanceProvider, useFinance } from './src/contexts/FinanceContext';
+import { LoginScreen } from './src/screens/Login';
+import { CadastroScreen } from './src/screens/Cadastro';
 import { HomeScreen } from './src/screens/Home';
 import { TransactionsScreen } from './src/screens/Transactions';
 import { AddTransactionScreen } from './src/screens/AddTransaction';
@@ -75,7 +77,9 @@ function AppNavigation() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainTabs" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Cadastro" component={CadastroScreen} />
         <Stack.Screen name="MainTabs" component={MainTabs} />
         <Stack.Screen name="Categories" component={CategoriesScreen} />
         <Stack.Screen name="Notifications" component={NotificationsScreen} />
