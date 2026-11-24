@@ -84,3 +84,4 @@ CREATE TABLE notificacoes (
 
 CREATE INDEX ix_notificacoes_usuario ON notificacoes (usuario_id, lida, criada_em DESC);
 CREATE INDEX ix_notificacoes_categoria ON notificacoes (categoria_id);
+CREATE INDEX ix_notificacoes_transacao ON notificacoes (transacao_id);
