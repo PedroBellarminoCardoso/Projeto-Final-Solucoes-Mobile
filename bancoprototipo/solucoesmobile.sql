@@ -66,3 +66,18 @@ CREATE TABLE orcamentos_categoria (
 );
 
 CREATE INDEX ix_orc_cat_categoria ON orcamentos_categoria (categoria_id);
+
+CREATE TABLE notificacoes (
+  id           BIGINT           GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  usuario_id   INTEGER          NOT NULL REFERENCES usuarios (id) ON DELETE CASCADE,
+  chave        VARCHAR(120)     NOT NULL,
+  tipo         tipo_notificacao NOT NULL,
+  titulo       VARCHAR(150)     NOT NULL,
+  mensagem     VARCHAR(500)     NOT NULL,
+  categoria_id INTEGER          REFERENCES categorias (id) ON DELETE SET NULL,
+  transacao_id BIGINT           REFERENCES transacoes (id) ON DELETE CASCADE,
+  lida         BOOLEAN          NOT NULL DEFAULT FALSE,
+  criada_em    TIMESTAMPTZ      NOT NULL DEFAULT now(),
+  lida_em      TIMESTAMPTZ,
+  CONSTRAINT uq_notificacao_usuario_chave UNIQUE (usuario_id, chave)
+);
