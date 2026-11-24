@@ -11,3 +11,15 @@ CREATE TABLE usuarios (
   atualizado_em   TIMESTAMPTZ  NOT NULL DEFAULT now()
 );
 CREATE UNIQUE INDEX uq_usuarios_email ON usuarios (lower(email));
+
+CREATE TABLE categorias (
+  id         INTEGER     GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  usuario_id INTEGER     REFERENCES usuarios (id) ON DELETE CASCADE,  -- NULL = categoria padrão do sistema
+  nome       VARCHAR(60) NOT NULL,
+  tipo       tipo_movimento NOT NULL,
+  icone      VARCHAR(40) NOT NULL DEFAULT 'tag',                      -- nome do ícone Feather
+  cor        VARCHAR(7)  NOT NULL DEFAULT '#6D38E8' CHECK (cor ~ '^#[0-9A-Fa-f]{6}$'),
+  ativa      BOOLEAN     NOT NULL DEFAULT TRUE,                       -- "excluir" = desativar (preserva histórico)
+  criado_em  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT uq_categorias_id_tipo UNIQUE (id, tipo)                  -- permite FK composta (id, tipo)
+);
