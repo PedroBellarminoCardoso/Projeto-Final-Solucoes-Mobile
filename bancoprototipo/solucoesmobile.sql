@@ -43,3 +43,14 @@ CREATE TABLE transacoes (
 CREATE INDEX ix_transacoes_usuario_data  ON transacoes (usuario_id, data_transacao DESC, id DESC);
 CREATE INDEX ix_transacoes_usuario_cat   ON transacoes (usuario_id, categoria_id, data_transacao);
 CREATE INDEX ix_transacoes_categoria     ON transacoes (categoria_id);
+
+CREATE TABLE orcamentos_mensais (
+  id            INTEGER       GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  usuario_id    INTEGER       NOT NULL REFERENCES usuarios (id) ON DELETE CASCADE,
+  ano           SMALLINT      NOT NULL CHECK (ano BETWEEN 2000 AND 2100),
+  mes           SMALLINT      NOT NULL CHECK (mes BETWEEN 1 AND 12),
+  limite_geral  NUMERIC(12,2) CHECK (limite_geral > 0),
+  criado_em     TIMESTAMPTZ   NOT NULL DEFAULT now(),
+  atualizado_em TIMESTAMPTZ   NOT NULL DEFAULT now(),
+  CONSTRAINT uq_orcamento_usuario_mes UNIQUE (usuario_id, ano, mes)
+);
