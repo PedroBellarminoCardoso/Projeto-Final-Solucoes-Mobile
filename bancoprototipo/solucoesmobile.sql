@@ -25,3 +25,17 @@ CREATE TABLE categorias (
 );
 
 CREATE UNIQUE INDEX uq_categorias_dono_tipo_nome ON categorias (COALESCE(usuario_id, 0), tipo, lower(nome));
+
+CREATE TABLE transacoes (
+  id             BIGINT         GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  usuario_id     INTEGER        NOT NULL REFERENCES usuarios (id) ON DELETE CASCADE,
+  categoria_id   INTEGER        NOT NULL,
+  tipo           tipo_movimento NOT NULL,
+  valor          NUMERIC(12,2)  NOT NULL CHECK (valor > 0),
+  descricao      VARCHAR(255)   NOT NULL CHECK (length(btrim(descricao)) > 0),
+  data_transacao DATE           NOT NULL,
+  criado_em      TIMESTAMPTZ    NOT NULL DEFAULT now(),
+  atualizado_em  TIMESTAMPTZ    NOT NULL DEFAULT now(),
+  -- garante que despesa só use categoria de despesa e receita só de receita
+  CONSTRAINT fk_transacoes_categoria FOREIGN KEY (categoria_id, tipo) REFERENCES categorias (id, tipo)
+);
