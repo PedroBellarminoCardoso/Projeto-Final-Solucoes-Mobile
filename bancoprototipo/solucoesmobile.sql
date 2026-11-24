@@ -10,3 +10,4 @@ CREATE TABLE usuarios (
   criado_em       TIMESTAMPTZ  NOT NULL DEFAULT now(),
   atualizado_em   TIMESTAMPTZ  NOT NULL DEFAULT now()
 );
+CREATE UNIQUE INDEX uq_usuarios_email ON usuarios (lower(email));
