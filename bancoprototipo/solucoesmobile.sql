@@ -23,3 +23,5 @@ CREATE TABLE categorias (
   criado_em  TIMESTAMPTZ NOT NULL DEFAULT now(),
   CONSTRAINT uq_categorias_id_tipo UNIQUE (id, tipo)                  -- permite FK composta (id, tipo)
 );
+
+CREATE UNIQUE INDEX uq_categorias_dono_tipo_nome ON categorias (COALESCE(usuario_id, 0), tipo, lower(nome));
