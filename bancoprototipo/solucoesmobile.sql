@@ -41,3 +41,4 @@ CREATE TABLE transacoes (
 );
 
 CREATE INDEX ix_transacoes_usuario_data  ON transacoes (usuario_id, data_transacao DESC, id DESC);
+CREATE INDEX ix_transacoes_usuario_cat   ON transacoes (usuario_id, categoria_id, data_transacao);
