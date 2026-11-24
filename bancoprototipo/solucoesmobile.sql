@@ -54,3 +54,13 @@ CREATE TABLE orcamentos_mensais (
   atualizado_em TIMESTAMPTZ   NOT NULL DEFAULT now(),
   CONSTRAINT uq_orcamento_usuario_mes UNIQUE (usuario_id, ano, mes)
 );
+
+CREATE TABLE orcamentos_categoria (
+  id           INTEGER        GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  orcamento_id INTEGER        NOT NULL REFERENCES orcamentos_mensais (id) ON DELETE CASCADE,
+  categoria_id INTEGER        NOT NULL,
+  tipo         tipo_movimento NOT NULL DEFAULT 'despesa' CHECK (tipo = 'despesa'),  -- limite só faz sentido p/ despesa
+  limite       NUMERIC(12,2)  NOT NULL CHECK (limite > 0),
+  CONSTRAINT uq_orcamento_categoria UNIQUE (orcamento_id, categoria_id),
+  CONSTRAINT fk_orc_cat_categoria FOREIGN KEY (categoria_id, tipo) REFERENCES categorias (id, tipo)
+);
