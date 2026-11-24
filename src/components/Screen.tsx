@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
+import { fonts } from '../theme/fonts';
 
 interface ScreenProps {
   title: string;
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   overline: {
     fontSize: 10,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     letterSpacing: 1,
     color: colors.primary,
     marginBottom: 2,
@@ -82,13 +83,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 23,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   subtitle: {
     fontSize: 13,
     color: colors.muted,
-    marginTop: 2
+    marginTop: 2,
+    fontFamily: fonts.regular
   },
   rightAction: {
     marginLeft: 12

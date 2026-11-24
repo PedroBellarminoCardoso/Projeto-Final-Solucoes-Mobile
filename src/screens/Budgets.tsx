@@ -9,6 +9,7 @@ import { colors } from '../theme/colors';
 import { formatCurrency } from '../utils/currency';
 import { EXPENSE_CATEGORIES, getCategoryMeta } from '../utils/categories';
 import { isSameMonth } from '../utils/date';
+import { fonts } from '../theme/fonts';
 
 export function BudgetsScreen({ navigation }: any) {
   const {
@@ -280,7 +281,7 @@ const styles = StyleSheet.create({
   caption: {
     color: colors.muted,
     fontSize: 12.5,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   editLink: {
     flexDirection: 'row',
@@ -288,13 +289,13 @@ const styles = StyleSheet.create({
   },
   editLinkText: {
     fontSize: 12.5,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primary,
     marginLeft: 5
   },
   mainAmount: {
     color: colors.text,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     fontSize: 28,
     marginTop: 6,
     marginBottom: 14
@@ -316,11 +317,12 @@ const styles = StyleSheet.create({
   },
   mutedSmall: {
     color: colors.muted,
-    fontSize: 12
+    fontSize: 12,
+    fontFamily: fonts.regular
   },
   percentBadge: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     color: colors.primary
   },
   availablePill: {
@@ -336,11 +338,11 @@ const styles = StyleSheet.create({
   availableLabel: {
     fontSize: 12.5,
     color: colors.primaryDark,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   availableValue: {
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.primaryDark
   },
   alertBanner: {
@@ -358,18 +360,19 @@ const styles = StyleSheet.create({
   },
   alertTitle: {
     fontSize: 13.5,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.warning,
     marginBottom: 3
   },
   alertBody: {
     fontSize: 12,
     color: colors.textSecondary,
-    lineHeight: 17
+    lineHeight: 17,
+    fontFamily: fonts.regular
   },
   sectionTitle: {
     fontSize: 15.5,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text,
     marginBottom: 10
   },
@@ -398,7 +401,7 @@ const styles = StyleSheet.create({
   },
   catName: {
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   catEditBtn: {
@@ -412,21 +415,21 @@ const styles = StyleSheet.create({
   },
   catSpent: {
     fontSize: 12.5,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     color: colors.text
   },
   catLimitMuted: {
-    fontWeight: '500',
+    fontFamily: fonts.regular,
     color: colors.muted
   },
   catPct: {
     fontSize: 12.5,
-    fontWeight: '800'
+    fontFamily: fonts.regular
   },
   catStatusText: {
     fontSize: 11.5,
     color: colors.primary,
-    fontWeight: '600',
+    fontFamily: fonts.bold,
     marginTop: 7
   },
   inlineEditor: {
@@ -437,7 +440,7 @@ const styles = StyleSheet.create({
   },
   inlineEditorLabel: {
     fontSize: 11.5,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primaryDark,
     marginBottom: 8
   },
@@ -454,7 +457,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     fontSize: 14,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     color: colors.text,
     marginRight: 8
   },
@@ -467,12 +470,13 @@ const styles = StyleSheet.create({
   confirmBtnText: {
     color: '#FFFFFF',
     fontSize: 12.5,
-    fontWeight: '700'
+    fontFamily: fonts.bold
   },
   bottomNote: {
     textAlign: 'center',
     fontSize: 11.5,
     color: colors.muted,
-    marginTop: 8
-  }
+    marginTop: 8,
+    fontFamily: fonts.regular
+  },
 });

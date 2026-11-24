@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
+import { useFonts, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
 import { FinanceProvider, useFinance } from './src/contexts/FinanceContext';
 import { HomeScreen } from './src/screens/Home';
 import { TransactionsScreen } from './src/screens/Transactions';
@@ -14,6 +15,7 @@ import { ReportsScreen } from './src/screens/Reports';
 import { CategoriesScreen } from './src/screens/CategoriesModal';
 import { NotificationsScreen } from './src/screens/NotificationsModal';
 import { colors } from './src/theme/colors';
+import { fonts } from './src/theme/fonts';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -83,6 +85,9 @@ function AppNavigation() {
 }
 
 export default function App() {
+  // Fontes carregadas uma vez para o app inteiro (sem bloquear a tela).
+  useFonts({ Inter_400Regular, Inter_600SemiBold, Inter_700Bold });
+
   return (
     <SafeAreaProvider>
       <FinanceProvider>
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     color: colors.muted,
     fontSize: 13.5,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   tabBar: {
     backgroundColor: colors.surface,
@@ -122,7 +127,7 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     fontSize: 10,
-    fontWeight: '600',
+    fontFamily: fonts.bold,
     marginTop: 2
   },
   tabIconPill: {

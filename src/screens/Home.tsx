@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { FadeValue } from '../components/FadeValue';
+import { ExpenseDonut } from '../components/ExpenseDonut';
+import { fonts } from '../theme/fonts';
 import { Screen } from '../components/Screen';
 import { MonthSelector } from '../components/MonthSelector';
 import { BalanceCard } from '../components/BalanceCard';
@@ -12,6 +15,15 @@ import { getMonthLongName, isSameMonth } from '../utils/date';
 import { formatCurrency } from '../utils/currency';
 import { getCategoryMeta } from '../utils/categories';
 import { colors } from '../theme/colors';
+
+function formatRange(days: number[], monthLabel: string): string {
+  if (days.length === 0) return '';
+  const min = String(Math.min(...days)).padStart(2, '0');
+  const max = String(Math.max(...days)).padStart(2, '0');
+  return min === max
+    ? `Gastos do dia ${min} de ${monthLabel}`
+    : `Gastos de ${min} a ${max} de ${monthLabel}`;
+}
 
 export function HomeScreen({ navigation }: any) {
   const {
@@ -60,12 +72,18 @@ export function HomeScreen({ navigation }: any) {
   const unreadCount = unreadIds.filter(id => !readNotifications.includes(id)).length;
 
   const recentTransactions = monthTransactions.slice(0, 3);
-  const mask = (v: number) => (hideValues ? 'R$ •••' : formatCurrency(v));
+  const monthLabel = getMonthLongName(selectedMonth).toLowerCase();
+
+  const expenseDays = monthTransactions
+    .filter(t => t.type === 'expense')
+    .map(t => Number(t.date.split('-')[2]));
+  const footnote = `${formatRange(expenseDays, monthLabel)} • ${categoryBreakdown.length} categorias`;
+
 
   return (
     <Screen
       overline="CADÊ MEU DINHEIRO?"
-      title="Oi, estudante!"
+      title="Olá, Estudante"
       subtitle="Seu dinheiro, sem complicação."
       rightAction={
         <TouchableOpacity
@@ -114,7 +132,7 @@ export function HomeScreen({ navigation }: any) {
           </TouchableOpacity>
         </View>
         <View style={styles.budgetMainRow}>
-          <Text style={styles.budgetAmount}>{mask(budgetRemaining)}</Text>
+          <FadeValue value={formatCurrency(budgetRemaining)} masked="R$ •••" hidden={hideValues} style={styles.budgetAmount} />
           <Text style={styles.budgetSuffix}>para este mês</Text>
         </View>
         <View style={styles.track}>
@@ -134,9 +152,12 @@ export function HomeScreen({ navigation }: any) {
           />
         </View>
         <View style={styles.budgetFooter}>
-          <Text style={styles.mutedSmall}>
-            {mask(totals.expenses)} de {mask(monthlyLimit)} usados
-          </Text>
+          <View style={styles.budgetFooterValues}>
+            <FadeValue value={formatCurrency(totals.expenses)} masked="R$ •••" hidden={hideValues} style={styles.mutedSmall} />
+            <Text style={styles.mutedSmall}> de </Text>
+            <FadeValue value={formatCurrency(monthlyLimit)} masked="R$ •••" hidden={hideValues} style={styles.mutedSmall} />
+            <Text style={styles.mutedSmall}> usados</Text>
+          </View>
           <Text style={[styles.percentText, budgetPercent > 100 && { color: colors.expense }]}>
             {budgetPercent.toFixed(1).replace('.', ',')}%
           </Text>
@@ -153,44 +174,12 @@ export function HomeScreen({ navigation }: any) {
         </View>
 
         {categoryBreakdown.length === 0 ? (
-          <Text style={styles.emptyCategoryText}>
-            Nenhuma despesa registrada em {getMonthLongName(selectedMonth).toLowerCase()}.
-          </Text>
+          <Text style={styles.emptyCategoryText}>Nenhuma despesa registrada em {monthLabel}.</Text>
         ) : (
-          <View>
-            <View style={styles.stackedBar}>
-              {categoryBreakdown.map(slice => {
-                const pct = totals.expenses > 0 ? (slice.value / totals.expenses) * 100 : 0;
-                return (
-                  <View
-                    key={slice.label}
-                    style={[styles.stackedSegment, { flex: Math.max(pct, 4), backgroundColor: slice.color }]}
-                  />
-                );
-              })}
-            </View>
-            <View style={styles.legendList}>
-              {categoryBreakdown.slice(0, 5).map(slice => {
-                const pct = totals.expenses > 0 ? (slice.value / totals.expenses) * 100 : 0;
-                return (
-                  <View key={slice.label} style={styles.legendItem}>
-                    <View style={styles.legendLeft}>
-                      <View style={[styles.legendDot, { backgroundColor: slice.color }]} />
-                      <Text style={styles.legendName}>{slice.label}</Text>
-                    </View>
-                    <Text style={styles.legendPct}>{pct.toFixed(1).replace('.', ',')}%</Text>
-                  </View>
-                );
-              })}
-            </View>
-          </View>
+          <ExpenseDonut slices={categoryBreakdown} total={totals.expenses} hidden={hideValues} />
         )}
 
-        <Text style={styles.cardFootnote}>
-          {categoryBreakdown.length === 0
-            ? 'Adicione uma despesa para acompanhar seus gastos por categoria.'
-            : `${monthTransactions.filter(t => t.type === 'expense').length} lançamentos • ${categoryBreakdown.length} categorias`}
-        </Text>
+        <Text style={styles.cardFootnote}>{footnote}</Text>
       </Card>
 
       {/* Últimas movimentações */}
@@ -265,7 +254,7 @@ const styles = StyleSheet.create({
   },
   quickExpenseText: {
     color: '#FFFFFF',
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     fontSize: 13.5,
     marginLeft: 6
   },
@@ -282,7 +271,7 @@ const styles = StyleSheet.create({
   },
   quickIncomeText: {
     color: colors.primaryDark,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     fontSize: 13.5,
     marginLeft: 6
   },
@@ -294,12 +283,12 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   cardLink: {
     fontSize: 12.5,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primary
   },
   budgetMainRow: {
@@ -309,12 +298,13 @@ const styles = StyleSheet.create({
   },
   budgetAmount: {
     fontSize: 22,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.text,
     marginRight: 6
   },
   budgetSuffix: {
     fontSize: 12.5,
+    fontFamily: fonts.regular,
     color: colors.muted
   },
   track: {
@@ -327,6 +317,10 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 6
   },
+  budgetFooterValues: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   budgetFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -335,61 +329,23 @@ const styles = StyleSheet.create({
   },
   mutedSmall: {
     fontSize: 11.5,
+    fontFamily: fonts.regular,
     color: colors.muted
   },
   percentText: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     color: colors.primary
-  },
-  stackedBar: {
-    height: 10,
-    borderRadius: 6,
-    overflow: 'hidden',
-    flexDirection: 'row',
-    marginBottom: 12
-  },
-  stackedSegment: {
-    height: 10,
-    marginRight: 2
-  },
-  legendList: {
-    marginTop: 2
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 6
-  },
-  legendLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1
-  },
-  legendDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginRight: 8
-  },
-  legendName: {
-    fontSize: 12.5,
-    color: colors.textSecondary,
-    fontWeight: '500'
-  },
-  legendPct: {
-    fontSize: 12.5,
-    fontWeight: '700',
-    color: colors.text
   },
   emptyCategoryText: {
     color: colors.muted,
     fontSize: 13,
+    fontFamily: fonts.regular,
     paddingVertical: 6
   },
   cardFootnote: {
     fontSize: 11,
+    fontFamily: fonts.regular,
     color: colors.muted,
     marginTop: 8
   },
@@ -403,7 +359,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: colors.text,
     fontSize: 15.5,
-    fontWeight: '800'
+    fontFamily: fonts.bold
   },
   groupedList: {
     backgroundColor: colors.surface,
@@ -427,7 +383,7 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     color: colors.text,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     fontSize: 15
   },
   emptyText: {
@@ -435,6 +391,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 6,
     fontSize: 13,
+    fontFamily: fonts.regular,
     lineHeight: 19
   }
 });

@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { currentMonthLabel } from '../utils/date';
+import { fonts } from '../theme/fonts';
 
 interface MonthSelectorProps {
   month: Date;
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.text
   }
 });

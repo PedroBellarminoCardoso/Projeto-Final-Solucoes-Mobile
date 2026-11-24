@@ -13,6 +13,9 @@
     },
     "ios": {
       "bundleIdentifier": "com.exemplo.cademeudinheiro"
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

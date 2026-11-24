@@ -18,6 +18,7 @@ import { getTotals } from '../utils/calculations';
 import { formatCurrency } from '../utils/currency';
 import { getMonthLongName, isSameMonth } from '../utils/date';
 import { Transaction } from '../types/Transaction';
+import { fonts } from '../theme/fonts';
 
 type FilterType = 'all' | 'income' | 'expense';
 
@@ -214,13 +215,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 23,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   subtitle: {
     fontSize: 13,
     color: colors.muted,
-    marginTop: 2
+    marginTop: 2,
+    fontFamily: fonts.regular
   },
   searchButton: {
     width: 38,
@@ -245,7 +247,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 13.5,
     color: colors.text,
-    marginLeft: 8
+    marginLeft: 8,
+    fontFamily: fonts.regular
   },
   summaryTopRow: {
     flexDirection: 'row'
@@ -255,19 +258,19 @@ const styles = StyleSheet.create({
   },
   summaryLabelGreen: {
     fontSize: 11.5,
-    fontWeight: '600',
+    fontFamily: fonts.regular,
     color: colors.income,
     marginBottom: 4
   },
   summaryLabelRed: {
     fontSize: 11.5,
-    fontWeight: '600',
+    fontFamily: fonts.regular,
     color: colors.expense,
     marginBottom: 4
   },
   summaryValue: {
     fontSize: 17,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.text
   },
   summaryDivider: {
@@ -282,11 +285,12 @@ const styles = StyleSheet.create({
   },
   summaryMeta: {
     fontSize: 12,
-    color: colors.muted
+    color: colors.muted,
+    fontFamily: fonts.regular
   },
   summaryResult: {
     fontSize: 13.5,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.primary
   },
   chipsRow: {
@@ -308,12 +312,12 @@ const styles = StyleSheet.create({
   },
   chipText: {
     fontSize: 12.5,
-    fontWeight: '600',
+    fontFamily: fonts.bold,
     color: colors.textSecondary
   },
   chipTextActive: {
     color: '#FFFFFF',
-    fontWeight: '700'
+    fontFamily: fonts.bold
   },
   listHeader: {
     flexDirection: 'row',
@@ -323,12 +327,12 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     fontSize: 14.5,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   listCount: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     color: colors.primary
   },
   emptyCard: {
@@ -338,14 +342,15 @@ const styles = StyleSheet.create({
   emptyTitle: {
     marginTop: 10,
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   emptySubtitle: {
     marginTop: 5,
     fontSize: 12.5,
     color: colors.muted,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: fonts.regular
   },
   footerSummary: {
     backgroundColor: colors.softPurple,
@@ -361,16 +366,17 @@ const styles = StyleSheet.create({
   },
   footerMuted: {
     fontSize: 12,
-    color: colors.muted
+    color: colors.muted,
+    fontFamily: fonts.regular
   },
   footerPurpleLabel: {
     fontSize: 13,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primaryDark
   },
   footerPurpleValue: {
     fontSize: 14.5,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.primaryDark
   }
 });

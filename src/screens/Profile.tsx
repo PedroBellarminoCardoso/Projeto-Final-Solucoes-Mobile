@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Screen } from '../components/Screen';
 import { Card } from '../components/Card';
 import { colors } from '../theme/colors';
+import { fonts } from '../theme/fonts';
 
 export function ProfileScreen() {
   return (
@@ -37,12 +38,12 @@ const styles = StyleSheet.create({
   avatarText: {
     color: colors.primary,
     fontSize: 26,
-    fontWeight: '800'
+    fontFamily: fonts.bold
   },
   name: {
     color: colors.text,
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     marginTop: 12
   },
   email: {

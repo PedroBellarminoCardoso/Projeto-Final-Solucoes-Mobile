@@ -7,6 +7,7 @@ import { useFinance } from '../contexts/FinanceContext';
 import { colors } from '../theme/colors';
 import { formatCurrency } from '../utils/currency';
 import { isSameMonth } from '../utils/date';
+import { fonts } from '../theme/fonts';
 
 interface NotificationItem {
   id: string;
@@ -218,16 +219,16 @@ const styles = StyleSheet.create({
   },
   pillText: {
     fontSize: 12.5,
-    fontWeight: '600',
+    fontFamily: fonts.bold,
     color: colors.textSecondary
   },
   pillTextActive: {
     color: '#FFFFFF',
-    fontWeight: '700'
+    fontFamily: fonts.bold
   },
   markReadLink: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primary
   },
   notifCard: {
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
   notifMeta: {
     fontSize: 11,
     color: colors.muted,
-    fontWeight: '600',
+    fontFamily: fonts.bold,
     marginRight: 6
   },
   unreadDot: {
@@ -265,14 +266,15 @@ const styles = StyleSheet.create({
   },
   notifTitle: {
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text,
     marginBottom: 4
   },
   notifBody: {
     fontSize: 12.5,
     color: colors.textSecondary,
-    lineHeight: 18
+    lineHeight: 18,
+    fontFamily: fonts.regular
   },
   actionRow: {
     flexDirection: 'row',
@@ -285,7 +287,7 @@ const styles = StyleSheet.create({
   },
   actionText: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primary
   },
   emptyCard: {
@@ -295,18 +297,20 @@ const styles = StyleSheet.create({
   emptyTitle: {
     marginTop: 10,
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   emptySub: {
     marginTop: 4,
     fontSize: 12.5,
-    color: colors.muted
+    color: colors.muted,
+    fontFamily: fonts.regular
   },
   footerNote: {
     textAlign: 'center',
     fontSize: 11.5,
     color: colors.muted,
-    marginTop: 12
-  }
+    marginTop: 12,
+    fontFamily: fonts.regular
+  },
 });

@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
 import { formatCurrency } from '../utils/currency';
+import { FadeValue } from './FadeValue';
+import { fonts } from '../theme/fonts';
 
 interface BalanceCardProps {
   balance: number;
@@ -21,8 +23,6 @@ export function BalanceCard({
   hideValues = false,
   onToggleHide
 }: BalanceCardProps) {
-  const mask = (value: number) => (hideValues ? 'R$ •••••' : formatCurrency(value));
-
   return (
     <View style={styles.card}>
       <View style={styles.topRow}>
@@ -34,7 +34,7 @@ export function BalanceCard({
         )}
       </View>
 
-      <Text style={styles.balance}>{mask(balance)}</Text>
+      <FadeValue value={formatCurrency(balance)} masked="R$ •••••" hidden={hideValues} style={styles.balance} />
       <Text style={styles.subNote}>Resumo financeiro de {monthName.toLowerCase()}</Text>
 
       <View style={styles.divider} />
@@ -42,11 +42,11 @@ export function BalanceCard({
       <View style={styles.row}>
         <View style={styles.item}>
           <Text style={styles.smallLabel}>↙ Receitas</Text>
-          <Text style={styles.metricValue}>{mask(income)}</Text>
+          <FadeValue value={formatCurrency(income)} masked="R$ •••••" hidden={hideValues} style={styles.metricValue} />
         </View>
         <View style={styles.item}>
           <Text style={styles.smallLabel}>↗ Despesas</Text>
-          <Text style={styles.metricValue}>{mask(expenses)}</Text>
+          <FadeValue value={formatCurrency(expenses)} masked="R$ •••••" hidden={hideValues} style={styles.metricValue} />
         </View>
       </View>
     </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   label: {
     color: '#E6DCFF',
     fontSize: 13,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   eyeButton: {
     width: 30,
@@ -81,13 +81,14 @@ const styles = StyleSheet.create({
   balance: {
     color: '#FFFFFF',
     fontSize: 31,
-    fontWeight: '800',
+    fontFamily: fonts.semibold,
     marginTop: 6
   },
   subNote: {
     color: '#DFD2FF',
     fontSize: 11,
-    marginTop: 4
+    marginTop: 4,
+    fontFamily: fonts.regular
   },
   divider: {
     height: 1,
@@ -103,11 +104,12 @@ const styles = StyleSheet.create({
   smallLabel: {
     color: '#E6DCFF',
     fontSize: 12,
-    marginBottom: 4
+    marginBottom: 4,
+    fontFamily: fonts.regular
   },
   metricValue: {
     color: '#FFFFFF',
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     fontSize: 16
   }
 });

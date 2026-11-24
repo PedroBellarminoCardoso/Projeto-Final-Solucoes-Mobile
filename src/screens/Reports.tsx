@@ -4,12 +4,14 @@ import { Feather } from '@expo/vector-icons';
 import { Screen } from '../components/Screen';
 import { MonthSelector } from '../components/MonthSelector';
 import { Card } from '../components/Card';
+import { ExpenseDonut } from '../components/ExpenseDonut';
 import { useFinance } from '../contexts/FinanceContext';
 import { getTotals } from '../utils/calculations';
 import { colors } from '../theme/colors';
 import { formatCurrency } from '../utils/currency';
 import { getCategoryMeta } from '../utils/categories';
 import { getMonthLongName, getMonthShortName, isSameMonth, shiftMonth } from '../utils/date';
+import { fonts } from '../theme/fonts';
 
 export function ReportsScreen({ navigation }: any) {
   const { transactions, selectedMonth, changeMonth, hideValues } = useFinance();
@@ -84,25 +86,7 @@ export function ReportsScreen({ navigation }: any) {
           <Text style={styles.emptyText}>Ainda não há despesas neste mês para analisar.</Text>
         ) : (
           <View>
-            {categoryEntries.map(slice => {
-              const pct = totals.expenses > 0 ? (slice.value / totals.expenses) * 100 : 0;
-              return (
-                <View key={slice.label} style={styles.distRow}>
-                  <View style={styles.distLabelRow}>
-                    <View style={styles.legendLeft}>
-                      <View style={[styles.legendDot, { backgroundColor: slice.color }]} />
-                      <Text style={styles.legendName}>{slice.label}</Text>
-                    </View>
-                    <Text style={styles.legendPct}>
-                      {mask(slice.value)} ({pct.toFixed(1).replace('.', ',')}%)
-                    </Text>
-                  </View>
-                  <View style={styles.track}>
-                    <View style={[styles.fill, { width: `${pct}%`, backgroundColor: slice.color }]} />
-                  </View>
-                </View>
-              );
-            })}
+            <ExpenseDonut slices={categoryEntries} total={totals.expenses} hidden={hideValues} />
 
             {!!topCategory && (
               <View style={styles.highlightPill}>
@@ -228,7 +212,7 @@ const styles = StyleSheet.create({
   heroOverline: {
     color: '#E6DCFF',
     fontSize: 12.5,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   heroBadge: {
     width: 30,
@@ -241,17 +225,19 @@ const styles = StyleSheet.create({
   heroValue: {
     color: '#FFFFFF',
     fontSize: 29,
-    fontWeight: '800',
+    fontFamily: fonts.semibold,
     marginTop: 6,
     marginBottom: 4
   },
   heroFormula: {
     color: '#DFD2FF',
-    fontSize: 12
+    fontSize: 12,
+    fontFamily: fonts.regular
   },
   emptyText: {
     color: colors.muted,
-    fontSize: 13
+    fontSize: 13,
+    fontFamily: fonts.regular
   },
   distRow: {
     marginBottom: 12
@@ -275,11 +261,11 @@ const styles = StyleSheet.create({
   legendName: {
     fontSize: 12.5,
     color: colors.textSecondary,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   legendPct: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     color: colors.text
   },
   track: {
@@ -314,13 +300,14 @@ const styles = StyleSheet.create({
   },
   highlightTitle: {
     fontSize: 12.5,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.primaryDark
   },
   highlightSub: {
     fontSize: 11.5,
     color: colors.muted,
-    marginTop: 1
+    marginTop: 1,
+    fontFamily: fonts.regular
   },
   rhythmLegendRow: {
     flexDirection: 'row',
@@ -334,7 +321,7 @@ const styles = StyleSheet.create({
   rhythmLegendText: {
     fontSize: 12,
     color: colors.textSecondary,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   rhythmSummaryBox: {
     backgroundColor: colors.softPurple,
@@ -348,13 +335,13 @@ const styles = StyleSheet.create({
   },
   rhythmSummaryOverline: {
     fontSize: 10,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     color: colors.primary,
     marginBottom: 2
   },
   rhythmSummaryValue: {
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.text
   },
   barChartContainer: {
@@ -385,15 +372,15 @@ const styles = StyleSheet.create({
   barMonthLabel: {
     fontSize: 11.5,
     color: colors.muted,
-    fontWeight: '600'
+    fontFamily: fonts.bold
   },
   barMonthLabelActive: {
     color: colors.primary,
-    fontWeight: '800'
+    fontFamily: fonts.bold
   },
   insightsHeading: {
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text,
     marginTop: 4,
     marginBottom: 10
@@ -426,19 +413,20 @@ const styles = StyleSheet.create({
   },
   insightTitlePurple: {
     fontSize: 13.5,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.primaryDark,
     marginBottom: 3
   },
   insightTitleAmber: {
     fontSize: 13.5,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.warning,
     marginBottom: 3
   },
   insightDesc: {
     fontSize: 12,
     color: colors.textSecondary,
-    lineHeight: 17
-  }
+    lineHeight: 17,
+    fontFamily: fonts.regular
+  },
 });

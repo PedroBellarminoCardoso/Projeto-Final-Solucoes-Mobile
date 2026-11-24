@@ -8,6 +8,7 @@ import { TransactionType } from '../types/Transaction';
 import { colors } from '../theme/colors';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../utils/categories';
 import { formatSlashDate, parseSlashDateToIso } from '../utils/date';
+import { fonts } from '../theme/fonts';
 
 interface FormState {
   type: TransactionType;
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
   },
   segmentText: {
     fontSize: 13.5,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.muted,
     marginLeft: 6
   },
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
   },
   amountPrompt: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.regular,
     marginBottom: 6
   },
   promptExpense: {
@@ -267,14 +268,20 @@ const styles = StyleSheet.create({
   },
   currencyPrefix: {
     fontSize: 18,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     marginRight: 6
   },
   amountInput: {
     flex: 1,
-    fontSize: 34,
-    fontWeight: '800',
-    paddingVertical: 2
+    minWidth: 0,
+    fontSize: 26,
+    fontFamily: fonts.regular,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: colors.primaryLight,
+    borderRadius: 14,
+    backgroundColor: colors.surface
   },
   valueExpense: {
     color: colors.primary
@@ -284,11 +291,12 @@ const styles = StyleSheet.create({
   },
   amountHint: {
     fontSize: 11,
-    marginTop: 4
+    marginTop: 4,
+    fontFamily: fonts.regular
   },
   sectionLabel: {
     color: colors.text,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     fontSize: 13,
     marginBottom: 8,
     marginTop: 4
@@ -320,13 +328,13 @@ const styles = StyleSheet.create({
   },
   categoryLabel: {
     fontSize: 11.5,
-    fontWeight: '600',
+    fontFamily: fonts.bold,
     color: colors.textSecondary,
     marginTop: 6
   },
   categoryLabelSelected: {
     color: colors.primaryDark,
-    fontWeight: '700'
+    fontFamily: fonts.bold
   },
   input: {
     backgroundColor: colors.surface,
@@ -337,7 +345,8 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     color: colors.text,
     fontSize: 14,
-    marginBottom: 14
+    marginBottom: 14,
+    fontFamily: fonts.regular
   },
   dateInputBox: {
     flexDirection: 'row',
@@ -353,7 +362,8 @@ const styles = StyleSheet.create({
   dateInput: {
     flex: 1,
     fontSize: 14,
-    color: colors.text
+    color: colors.text,
+    fontFamily: fonts.regular
   },
   draftRow: {
     flexDirection: 'row',
@@ -363,7 +373,8 @@ const styles = StyleSheet.create({
   draftText: {
     fontSize: 11.5,
     color: colors.muted,
-    marginLeft: 6
+    marginLeft: 6,
+    fontFamily: fonts.regular
   },
   securityRow: {
     flexDirection: 'row',
@@ -374,6 +385,7 @@ const styles = StyleSheet.create({
   securityText: {
     fontSize: 11,
     color: colors.muted,
-    marginLeft: 5
-  }
+    marginLeft: 5,
+    fontFamily: fonts.regular
+  },
 });

@@ -9,6 +9,7 @@ import { colors } from '../theme/colors';
 import { formatCurrency } from '../utils/currency';
 import { getCategoryMeta } from '../utils/categories';
 import { isSameMonth } from '../utils/date';
+import { fonts } from '../theme/fonts';
 
 export function CategoriesScreen({ navigation }: any) {
   const { transactions, selectedMonth, changeMonth, hideValues } = useFinance();
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
   },
   totalAmount: {
     fontSize: 26,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.text,
     marginBottom: 10
   },
@@ -158,11 +159,12 @@ const styles = StyleSheet.create({
   },
   footerMuted: {
     fontSize: 12,
-    color: colors.muted
+    color: colors.muted,
+    fontFamily: fonts.regular
   },
   footerPurple: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primary
   },
   stackedBar: {
@@ -184,12 +186,12 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   sortLabel: {
     fontSize: 12,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primary
   },
   emptyCard: {
@@ -198,7 +200,8 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     color: colors.muted,
-    fontSize: 13
+    fontSize: 13,
+    fontFamily: fonts.regular
   },
   catCard: {
     backgroundColor: colors.surface,
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
   },
   catName: {
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text
   },
   catMetaRow: {
@@ -253,7 +256,8 @@ const styles = StyleSheet.create({
   },
   catMeta: {
     fontSize: 11.5,
-    color: colors.muted
+    color: colors.muted,
+    fontFamily: fonts.regular
   },
   catRight: {
     flexDirection: 'row',
@@ -261,7 +265,7 @@ const styles = StyleSheet.create({
   },
   catTotal: {
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: fonts.regular,
     color: colors.text,
     marginRight: 5
   },
@@ -275,12 +279,12 @@ const styles = StyleSheet.create({
   },
   expandedPurple: {
     fontSize: 11.5,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.primary
   },
   expandedAvg: {
     fontSize: 11.5,
-    fontWeight: '600',
+    fontFamily: fonts.regular,
     color: colors.primaryDark
   }
 });

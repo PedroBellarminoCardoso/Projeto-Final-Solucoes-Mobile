@@ -6,6 +6,8 @@ import { colors } from '../theme/colors';
 import { formatCurrency } from '../utils/currency';
 import { getCategoryMeta } from '../utils/categories';
 import { formatShortDayMonth } from '../utils/date';
+import { FadeValue } from './FadeValue';
+import { fonts } from '../theme/fonts';
 
 interface TransactionCardProps {
   item: Transaction;
@@ -45,9 +47,12 @@ export function TransactionCard({
       </View>
 
       <View style={styles.amountArea}>
-        <Text style={[styles.amount, { color: isIncome ? colors.income : colors.text }]}>
-          {hideValues ? '•••' : `${isIncome ? '+' : '-'} ${formatCurrency(item.amount)}`}
-        </Text>
+        <FadeValue
+          value={`${isIncome ? '+' : '-'} ${formatCurrency(item.amount)}`}
+          masked="•••"
+          hidden={hideValues}
+          style={[styles.amount, { color: isIncome ? colors.income : colors.text }]}
+        />
         {!!onDelete && (
           <TouchableOpacity onPress={() => onDelete(item.id)} style={styles.deleteBtn}>
             <Feather name="trash-2" size={12} color={colors.muted} />
@@ -95,20 +100,21 @@ const styles = StyleSheet.create({
   },
   name: {
     color: colors.text,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     fontSize: 13.5
   },
   meta: {
     color: colors.muted,
     fontSize: 11.5,
-    marginTop: 2
+    marginTop: 2,
+    fontFamily: fonts.regular
   },
   amountArea: {
     alignItems: 'flex-end'
   },
   amount: {
     fontSize: 13.5,
-    fontWeight: '700'
+    fontFamily: fonts.regular
   },
   deleteBtn: {
     flexDirection: 'row',
@@ -118,6 +124,7 @@ const styles = StyleSheet.create({
   delete: {
     color: colors.muted,
     fontSize: 11,
-    marginLeft: 3
-  }
+    marginLeft: 3,
+    fontFamily: fonts.regular
+  },
 });

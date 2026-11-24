@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ViewProps } from 'react-native';
 import { colors } from '../theme/colors';
+import { fonts } from '../theme/fonts';
 
 interface CardProps extends ViewProps {
   title?: string;
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: fonts.bold,
     color: colors.text,
     marginBottom: 10
   }

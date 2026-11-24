@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
+import { fonts } from '../theme/fonts';
 
 interface PrimaryButtonProps extends TouchableOpacityProps {
   title?: string;
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#FFFFFF',
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     fontSize: 15
   }
 });
