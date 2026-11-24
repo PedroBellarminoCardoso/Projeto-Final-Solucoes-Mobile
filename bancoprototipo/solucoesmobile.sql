@@ -139,3 +139,8 @@ $$;
 CREATE TRIGGER trg_orc_cat_valida_categoria
   BEFORE INSERT OR UPDATE OF orcamento_id, categoria_id ON orcamentos_categoria
   FOR EACH ROW EXECUTE FUNCTION fn_validar_categoria_orcamento();
+
+CREATE FUNCTION fn_brl(p_valor NUMERIC) RETURNS TEXT
+LANGUAGE sql IMMUTABLE AS $$
+  SELECT 'R$ ' || replace(to_char(p_valor, 'FM999999990.00'), '.', ',');
+$$;
