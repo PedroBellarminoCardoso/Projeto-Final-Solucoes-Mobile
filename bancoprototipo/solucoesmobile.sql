@@ -64,3 +64,5 @@ CREATE TABLE orcamentos_categoria (
   CONSTRAINT uq_orcamento_categoria UNIQUE (orcamento_id, categoria_id),
   CONSTRAINT fk_orc_cat_categoria FOREIGN KEY (categoria_id, tipo) REFERENCES categorias (id, tipo)
 );
+
+CREATE INDEX ix_orc_cat_categoria ON orcamentos_categoria (categoria_id);
