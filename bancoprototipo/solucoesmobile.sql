@@ -118,3 +118,19 @@ $$;
 CREATE TRIGGER trg_transacoes_valida_categoria
   BEFORE INSERT OR UPDATE OF usuario_id, categoria_id ON transacoes
   FOR EACH ROW EXECUTE FUNCTION fn_validar_categoria_transacao();
+
+CREATE FUNCTION fn_validar_categoria_orcamento() RETURNS trigger
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_usuario INTEGER;
+  v_dono    INTEGER;
+BEGIN
+  SELECT usuario_id INTO v_usuario FROM orcamentos_mensais WHERE id = NEW.orcamento_id;
+  SELECT usuario_id INTO v_dono    FROM categorias         WHERE id = NEW.categoria_id;
+  IF v_dono IS NOT NULL AND v_dono <> v_usuario THEN
+    RAISE EXCEPTION 'Categoria % não pertence ao usuário do orçamento', NEW.categoria_id
+      USING ERRCODE = 'check_violation';
+  END IF;
+  RETURN NEW;
+END;
+$$;
