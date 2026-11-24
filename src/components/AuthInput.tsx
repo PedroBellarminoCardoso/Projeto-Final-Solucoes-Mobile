@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../theme/colors';
@@ -13,20 +13,25 @@ interface AuthInputProps extends TextInputProps {
 }
 
 /**
- * Campo de formulário padrão de autenticação com fundo branco, borda roxa e suporte a senha.
+ * Campo de formulário padrão de autenticação com fundo suave, destaque no foco e suporte a senha.
  */
-export function AuthInput({
-  label,
-  icon,
-  error,
-  isPassword = false,
-  containerStyle,
-  onFocus,
-  onBlur,
-  ...props
-}: AuthInputProps) {
+export const AuthInput = forwardRef<TextInput, AuthInputProps>(function AuthInput(
+  {
+    label,
+    icon,
+    error,
+    isPassword = false,
+    containerStyle,
+    onFocus,
+    onBlur,
+    ...props
+  },
+  ref
+) {
   const [focused, setFocused] = useState(false);
   const [hidePassword, setHidePassword] = useState(true);
+
+  const iconColor = error ? colors.expense : focused ? colors.primary : colors.muted;
 
   return (
     <View style={containerStyle}>
@@ -38,8 +43,9 @@ export function AuthInput({
           !!error && styles.inputBoxError
         ]}
       >
-        <Feather name={icon} size={16} color={colors.primary} style={styles.inputIcon} />
+        <Feather name={icon} size={16} color={iconColor} style={styles.inputIcon} />
         <TextInput
+          ref={ref}
           placeholderTextColor={colors.muted}
           secureTextEntry={isPassword ? hidePassword : false}
           onFocus={e => {
@@ -61,38 +67,50 @@ export function AuthInput({
           >
             <Feather
               name={hidePassword ? 'eye-off' : 'eye'}
-              size={17}
+              size={16}
               color={colors.primary}
             />
           </TouchableOpacity>
         )}
       </View>
-      {!!error && <Text style={styles.errorText}>{error}</Text>}
+      {!!error && (
+        <View style={styles.errorRow}>
+          <Feather name="alert-circle" size={12} color={colors.expense} style={styles.errorIcon} />
+          <Text style={styles.errorText}>{error}</Text>
+        </View>
+      )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   fieldLabel: {
     color: colors.text,
-    fontFamily: fonts.bold,
-    fontSize: 13,
-    marginBottom: 8
+    fontFamily: fonts.semibold,
+    fontSize: 12.5,
+    marginBottom: 7
   },
   inputBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.surface,
+    backgroundColor: colors.softPurpleLight,
     borderWidth: 1.5,
-    borderColor: colors.primaryLight,
+    borderColor: colors.softPurpleBorder,
     borderRadius: 14,
     paddingHorizontal: 14,
-    paddingVertical: 4
+    paddingVertical: 3
   },
   inputBoxFocused: {
-    borderColor: colors.primary
+    backgroundColor: colors.surface,
+    borderColor: colors.primary,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 2
   },
   inputBoxError: {
+    backgroundColor: '#FFF8F8',
     borderColor: colors.expense
   },
   inputIcon: {
@@ -114,10 +132,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 8
   },
+  errorRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 6
+  },
+  errorIcon: {
+    marginRight: 5
+  },
   errorText: {
     color: colors.expense,
     fontSize: 11.5,
     fontFamily: fonts.regular,
-    marginTop: 6
+    flex: 1
   }
 });

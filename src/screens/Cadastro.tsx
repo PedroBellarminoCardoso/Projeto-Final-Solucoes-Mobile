@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { Screen } from '../components/Screen';
-import { Card } from '../components/Card';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, TextInput } from 'react-native';
+import { AuthLayout } from '../components/AuthLayout';
 import { PrimaryButton } from '../components/PrimaryButton';
 import { AuthInput } from '../components/AuthInput';
 import { colors } from '../theme/colors';
-import { fonts } from '../theme/fonts';
 import { getEmailError, sanitizeEmail } from '../utils/validation';
 
 export function CadastroScreen({ navigation }: any) {
@@ -19,6 +16,10 @@ export function CadastroScreen({ navigation }: any) {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [confirmError, setConfirmError] = useState<string | null>(null);
+
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
+  const confirmRef = useRef<TextInput>(null);
 
   const handleRegister = () => {
     const nextNameError = name.trim() ? null : 'Informe seu nome.';
@@ -45,186 +46,122 @@ export function CadastroScreen({ navigation }: any) {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.flex}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    <AuthLayout
+      title="Criar conta"
+      subtitle="Seu dinheiro, sem complicação."
+      cardIcon="user-plus"
+      cardTitle="Faça seu cadastro"
+      cardSubtitle="Preencha seus dados para organizar suas finanças."
+      switchPrompt="Já possui cadastro?"
+      switchActionLabel="Entrar"
+      onSwitchPress={() => navigation.navigate('Login')}
     >
-      <Screen
-        overline="CADÊ MEU DINHEIRO?"
-        title="Criar conta"
-        subtitle="Seu dinheiro, sem complicação."
-      >
-        <Card style={styles.formCard}>
-          <Text style={styles.cardTitle}>Faça seu cadastro</Text>
-          <Text style={styles.cardSubtitle}>
-            Preencha seus dados para começar a organizar suas finanças.
-          </Text>
+      <AuthInput
+        label="Nome"
+        icon="user"
+        value={name}
+        onChangeText={text => {
+          setName(text);
+          if (nameError) setNameError(null);
+        }}
+        placeholder="Seu nome completo"
+        autoCapitalize="words"
+        autoComplete="name"
+        textContentType="name"
+        returnKeyType="next"
+        onSubmitEditing={() => emailRef.current?.focus()}
+        error={nameError}
+      />
 
-          <View style={styles.purpleDivider} />
+      <AuthInput
+        ref={emailRef}
+        label="E-mail"
+        icon="mail"
+        containerStyle={styles.fieldSpacing}
+        value={email}
+        onChangeText={text => {
+          setEmail(sanitizeEmail(text));
+          if (emailError) setEmailError(null);
+        }}
+        onBlur={() => {
+          if (email.length > 0) {
+            setEmailError(getEmailError(email));
+          }
+        }}
+        placeholder="estudante@email.com"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoComplete="email"
+        textContentType="emailAddress"
+        returnKeyType="next"
+        onSubmitEditing={() => passwordRef.current?.focus()}
+        error={emailError}
+      />
 
-          <AuthInput
-            label="Nome"
-            icon="user"
-            value={name}
-            onChangeText={text => {
-              setName(text);
-              if (nameError) setNameError(null);
-            }}
-            placeholder="Seu nome completo"
-            autoCapitalize="words"
-            autoComplete="name"
-            textContentType="name"
-            returnKeyType="next"
-            error={nameError}
-          />
+      <AuthInput
+        ref={passwordRef}
+        label="Senha"
+        icon="lock"
+        isPassword
+        containerStyle={styles.fieldSpacing}
+        value={password}
+        onChangeText={text => {
+          setPassword(text);
+          if (passwordError) setPasswordError(null);
+          if (confirmError && confirmPassword === text) setConfirmError(null);
+        }}
+        placeholder="Digite sua senha"
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoComplete="new-password"
+        textContentType="newPassword"
+        returnKeyType="next"
+        onSubmitEditing={() => confirmRef.current?.focus()}
+        error={passwordError}
+      />
 
-          <AuthInput
-            label="E-mail"
-            icon="mail"
-            containerStyle={styles.fieldSpacing}
-            value={email}
-            onChangeText={text => {
-              setEmail(sanitizeEmail(text));
-              if (emailError) setEmailError(null);
-            }}
-            onBlur={() => {
-              if (email.length > 0) {
-                setEmailError(getEmailError(email));
-              }
-            }}
-            placeholder="estudante@email.com"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            autoComplete="email"
-            textContentType="emailAddress"
-            returnKeyType="next"
-            error={emailError}
-          />
+      <AuthInput
+        ref={confirmRef}
+        label="Confirme sua senha"
+        icon="lock"
+        isPassword
+        containerStyle={styles.fieldSpacing}
+        value={confirmPassword}
+        onChangeText={text => {
+          setConfirmPassword(text);
+          if (confirmError) setConfirmError(null);
+        }}
+        placeholder="Repita sua senha"
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoComplete="new-password"
+        textContentType="newPassword"
+        returnKeyType="done"
+        onSubmitEditing={handleRegister}
+        error={confirmError}
+      />
 
-          <AuthInput
-            label="Senha"
-            icon="lock"
-            isPassword
-            containerStyle={styles.fieldSpacing}
-            value={password}
-            onChangeText={text => {
-              setPassword(text);
-              if (passwordError) setPasswordError(null);
-              if (confirmError && confirmPassword === text) setConfirmError(null);
-            }}
-            placeholder="Digite sua senha"
-            autoCapitalize="none"
-            autoCorrect={false}
-            autoComplete="new-password"
-            textContentType="newPassword"
-            returnKeyType="next"
-            error={passwordError}
-          />
-
-          <AuthInput
-            label="Confirme sua senha"
-            icon="lock"
-            isPassword
-            containerStyle={styles.fieldSpacing}
-            value={confirmPassword}
-            onChangeText={text => {
-              setConfirmPassword(text);
-              if (confirmError) setConfirmError(null);
-            }}
-            placeholder="Repita sua senha"
-            autoCapitalize="none"
-            autoCorrect={false}
-            autoComplete="new-password"
-            textContentType="newPassword"
-            returnKeyType="done"
-            onSubmitEditing={handleRegister}
-            error={confirmError}
-          />
-
-          <View style={styles.purpleDivider} />
-
-          <PrimaryButton
-            title="Cadastrar"
-            icon="user-plus"
-            onPress={handleRegister}
-            style={styles.submitButton}
-          />
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Login')}
-            style={styles.switchButton}
-          >
-            <Text style={styles.switchButtonText}>Possui cadastro?</Text>
-          </TouchableOpacity>
-        </Card>
-
-        <View style={styles.securityRow}>
-          <Feather name="lock" size={11} color={colors.muted} />
-          <Text style={styles.securityText}>Suas finanças são pessoais. Cuide dos seus dados.</Text>
-        </View>
-      </Screen>
-    </KeyboardAvoidingView>
+      <PrimaryButton
+        title="Cadastrar"
+        icon="user-plus"
+        onPress={handleRegister}
+        style={styles.submitButton}
+      />
+    </AuthLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1
-  },
-  formCard: {
-    borderWidth: 1.5,
-    borderColor: colors.primaryLight,
-    marginTop: 4
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontFamily: fonts.bold,
-    color: colors.text
-  },
-  cardSubtitle: {
-    fontSize: 12.5,
-    fontFamily: fonts.regular,
-    color: colors.muted,
-    marginTop: 3
-  },
-  purpleDivider: {
-    height: 1,
-    backgroundColor: colors.softPurpleBorder,
-    marginVertical: 14
-  },
   fieldSpacing: {
     marginTop: 14
   },
   submitButton: {
-    marginTop: 0
-  },
-  switchButton: {
-    marginTop: 10,
-    backgroundColor: colors.surface,
-    borderWidth: 1.5,
-    borderColor: colors.softPurpleBorder,
-    borderRadius: 16,
-    paddingVertical: 13,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  switchButtonText: {
-    color: colors.primary,
-    fontFamily: fonts.bold,
-    fontSize: 14
-  },
-  securityRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 6
-  },
-  securityText: {
-    fontSize: 11,
-    color: colors.muted,
-    marginLeft: 5,
-    fontFamily: fonts.regular
+    marginTop: 20,
+    shadowColor: colors.primaryDark,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.24,
+    shadowRadius: 12,
+    elevation: 5
   }
 });
