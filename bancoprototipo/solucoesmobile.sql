@@ -114,3 +114,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
+
+CREATE TRIGGER trg_transacoes_valida_categoria
+  BEFORE INSERT OR UPDATE OF usuario_id, categoria_id ON transacoes
+  FOR EACH ROW EXECUTE FUNCTION fn_validar_categoria_transacao();
