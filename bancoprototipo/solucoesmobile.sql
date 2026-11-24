@@ -81,3 +81,5 @@ CREATE TABLE notificacoes (
   lida_em      TIMESTAMPTZ,
   CONSTRAINT uq_notificacao_usuario_chave UNIQUE (usuario_id, chave)
 );
+
+CREATE INDEX ix_notificacoes_usuario ON notificacoes (usuario_id, lida, criada_em DESC);
