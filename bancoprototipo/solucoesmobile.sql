@@ -93,4 +93,10 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-'
+
+CREATE TRIGGER trg_usuarios_atualizado  BEFORE UPDATE ON usuarios
+  FOR EACH ROW EXECUTE FUNCTION fn_atualizar_timestamp();
+CREATE TRIGGER trg_transacoes_atualizado BEFORE UPDATE ON transacoes
+  FOR EACH ROW EXECUTE FUNCTION fn_atualizar_timestamp();
+CREATE TRIGGER trg_orcamentos_atualizado BEFORE UPDATE ON orcamentos_mensais
+  FOR EACH ROW EXECUTE FUNCTION fn_atualizar_timestamp();
