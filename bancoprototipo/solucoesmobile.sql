@@ -39,3 +39,5 @@ CREATE TABLE transacoes (
   -- garante que despesa só use categoria de despesa e receita só de receita
   CONSTRAINT fk_transacoes_categoria FOREIGN KEY (categoria_id, tipo) REFERENCES categorias (id, tipo)
 );
+
+CREATE INDEX ix_transacoes_usuario_data  ON transacoes (usuario_id, data_transacao DESC, id DESC);
