@@ -144,3 +144,18 @@ CREATE FUNCTION fn_brl(p_valor NUMERIC) RETURNS TEXT
 LANGUAGE sql IMMUTABLE AS $$
   SELECT 'R$ ' || replace(to_char(p_valor, 'FM999999990.00'), '.', ',');
 $$;
+
+CREAT VIEW vw_resumo_mensal AS
+SELECT
+  usuario_id,
+  EXTRACT(YEAR  FROM data_transacao)::INTEGER AS ano,
+  EXTRACT(MONTH FROM data_transacao)::INTEGER AS mes,
+  COALESCE(SUM(valor) FILTER (WHERE tipo = 'receita'), 0) AS receitas,
+  COALESCE(SUM(valor) FILTER (WHERE tipo = 'despesa'), 0) AS despesas,
+  COALESCE(SUM(valor) FILTER (WHERE tipo = 'receita'), 0)
+    - COALESCE(SUM(valor) FILTER (WHERE tipo = 'despesa'), 0) AS saldo,
+  COUNT(*) AS qtd_lancamentos
+FROM transacoes
+GROUP BY usuario_id,
+         EXTRACT(YEAR  FROM data_transacao),
+         EXTRACT(MONTH FROM data_transacao);
