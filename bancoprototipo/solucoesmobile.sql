@@ -159,3 +159,14 @@ FROM transacoes
 GROUP BY usuario_id,
          EXTRACT(YEAR  FROM data_transacao),
          EXTRACT(MONTH FROM data_transacao);
+CREATE VIEW vw_gaastos_categoria_mensal AS
+WITH base AS (
+  SELECT
+    usuario_id,
+    EXTRACT(YEAR  FROM data_transacao)::INTEGER AS ano,
+    EXTRACT(MONTH FROM data_transacao)::INTEGER AS mes,
+    categoria_id,
+    valor
+  FROM transacoes
+  WHERE tipo = 'despesa'
+  ),
