@@ -224,4 +224,8 @@ WITH base AS (
   LEFT JOIN vw_resumo_mensal r
          ON r.usuario_id = o.usuario_id AND r.ano = o.ano AND r.mes = o.mes
 )
-  
+SELECT
+  usuario_id, ano, mes, limite, gasto,
+  limite - gasto AS restante,
+  CASE WHEN limite > 0 THEN ROUND(100 * gasto / limite, 1) ELSE 0 END AS percentual
+FROM base;  
