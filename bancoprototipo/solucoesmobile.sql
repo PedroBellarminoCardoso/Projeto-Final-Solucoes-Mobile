@@ -229,3 +229,17 @@ SELECT
   limite - gasto AS restante,
   CASE WHEN limite > 0 THEN ROUND(100 * gasto / limite, 1) ELSE 0 END AS percentual
 FROM base;  
+
+CREATE FUNCTION fn_garantir_orcamento(p_usuario INTEGER, p_ano INTEGER, p_mes INTEGER)
+RETURNS INTEGER
+LANGUAGE plpgsql AS $$
+DECLARE
+  v_id     INTEGER;
+  v_origem INTEGER;
+BEGIN
+  SELECT id INTO v_id
+    FROM orcamentos_mensais
+   WHERE usuario_id = p_usuario AND ano = p_ano AND mes = p_mes;
+  IF v_id IS NOT NULL THEN
+    RETURN v_id;
+  END IF;
