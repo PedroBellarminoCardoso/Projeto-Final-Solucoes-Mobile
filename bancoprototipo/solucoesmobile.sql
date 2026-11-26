@@ -255,3 +255,23 @@ IF v_origem IS NOT NULL THEN
     SELECT usuario_id, p_ano, p_mes, limite_geral
       FROM orcamentos_mensais WHERE id = v_origem
     RETURNING id INTO v_id;
+
+INSERT INTO orcamentos_categoria (orcamento_id, categoria_id, limite)
+    SELECT v_id, categoria_id, limite
+      FROM orcamentos_categoria WHERE orcamento_id = v_origem;
+  ELSE
+    INSERT INTO orcamentos_mensais (usuario_id, ano, mes)
+    VALUES (p_usuario, p_ano, p_mes)
+    RETURNING id INTO v_id;
+
+    INSERT INTO orcamentos_categoria (orcamento_id, categoria_id, limite)
+    SELECT v_id, c.id, p.limite
+      FROM (VALUES ('Moradia', 900), ('Alimentação', 500), ('Estudos', 250),
+                   ('Lazer', 150), ('Transporte', 200), ('Assinaturas', 200)) AS p(nome, limite)
+      JOIN categorias c
+        ON c.usuario_id IS NULL AND c.tipo = 'despesa' AND c.nome = p.nome;
+  END IF;
+
+  RETURN v_id;
+END;
+$$;
