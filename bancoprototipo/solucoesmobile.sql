@@ -170,3 +170,20 @@ WITH base AS (
   FROM transacoes
   WHERE tipo = 'despesa'
   ),
+agg AS (
+  SELECT usuario_id, ano, mes, categoria_id, SUM(valor) AS total, COUNT(*) AS qtd
+  FROM base
+  GROUP BY usuario_id, ano, mes, categoria_id
+  )
+SELECT
+  a.usuario_id, a.ano, a.mes,
+  a.categoria_id,
+  c.nome AS categoria_id,
+  c.icone,
+  c.cor,
+  a.total,
+  a.qtd,
+  ROUND(a.total / a.qtd, 2) AS media,
+  ROUND(100 * a.total / SUM(a.total) OVER (PARTITION BY a.usuario_id, a.ano, a.mes), 1) AS percentual
+FROM agg a
+JOIN categorias c ON c.id = a.categoria_id;
