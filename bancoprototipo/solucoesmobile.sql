@@ -178,7 +178,7 @@ agg AS (
 SELECT
   a.usuario_id, a.ano, a.mes,
   a.categoria_id,
-  c.nome AS categoria_id,
+  c.nome  AS categoria_id,
   c.icone,
   c.cor,
   a.total,
@@ -187,3 +187,16 @@ SELECT
   ROUND(100 * a.total / SUM(a.total) OVER (PARTITION BY a.usuario_id, a.ano, a.mes), 1) AS percentual
 FROM agg a
 JOIN categorias c ON c.id = a.categoria_id;
+
+CREATE VIEW vw_orcamento_categoria_status_id AS
+SELECT
+  o.usuario_id, o.ano, o,mes,
+  oc.categoria_id,
+  c.nome  AS categoria,
+  c.icone,
+  c.cor,
+  oc.limite,
+  COALESCE(g.total, 0)                                   AS gasto,
+  oc.limite - COALESCE(g.total, 0)                       AS restante,
+  ROUND(100 * COALESCE(g.total, 0) / oc.limite, 1)       AS percentual,
+  CASE
