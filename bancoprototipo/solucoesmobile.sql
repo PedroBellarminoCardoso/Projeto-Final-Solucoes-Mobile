@@ -209,3 +209,19 @@ JOIN categorias c            ON c.id = oc.categoria_id
 LEFT JOIN vw_gastos_categoria_mensal g
        ON g.usuario_id = o.usuario_id AND g.ano = o.ano AND g.mes = o.mes
       AND g.categoria_id = oc.categoria_id;
+
+CREATE VIEW vw_orcamento_geral_status AS
+WITH base AS (
+  SELECT
+    o.usuario_id, o.ano, o,mes,
+    COALESCE(
+      o.limite_geral,
+      (SELECT SUM(oc.limite) orcamentos_categoria oc WHERE oc.orcamento_id = o.id),
+      0
+    ) AS limite,
+    COALESCE(r.despesas, 0) AS gasto
+  FROM orcamentos_mensais o
+  LEFT JOIN vw_resumo_mensal r
+         ON r.usuario_id = o.usuario_id AND r.ano = o.ano AND r.mes = o.mes
+)
+  
