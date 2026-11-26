@@ -275,3 +275,32 @@ INSERT INTO orcamentos_categoria (orcamento_id, categoria_id, limite)
   RETURN v_id;
 END;
 $$;
+
+CREATE FUNCTION fn_gerar_notificacoes(p_usuario INTEGER, p_ano INTEGER, p_mes INTEGER)
+RETURNS VOID
+LANGUAGE plpgsql AS $$
+BEGIN
+  INSERT INTO notificacoes (usuario_id, chave, tipo, titulo, mensagem, categoria_id)
+  SELECT
+    s.usuario_id,
+    CASE s.status WHEN 'excedido' THEN 'limite_excedido' ELSE 'limite_proximo' END
+      || ':' || s.categoria_id::TEXT || ':' || p_ano::TEXT || '-' || lpad(p_mes::TEXT, 2, '0'),
+    CASE s.status WHEN 'excedido' THEN 'limite_excedido'::tipo_notificacao
+                  ELSE 'limite_proximo'::tipo_notificacao END,
+    CASE s.status
+      WHEN 'excedido' THEN s.categoria || ' passou do combinado'
+      ELSE 'Só ' || fn_brl(GREATEST(s.restante, 0)) || ' para ' || lower(s.categoria)
+    END,
+    CASE s.status
+      WHEN 'excedido' THEN 'Foram ' || fn_brl(s.gasto) || ' para um limite de ' || fn_brl(s.limite)
+                           || '. Que tal rever o plano?'
+      ELSE 'Seus gastos chegaram a ' || fn_brl(s.gasto) || ' de ' || fn_brl(s.limite)
+           || '. Você usou ' || ROUND(s.percentual)::TEXT || '% do limite.'
+    END,
+    s.categoria_id
+  FROM vw_orcamento_categoria_status s
+  WHERE s.usuario_id = p_usuario
+    AND s.ano = p_ano
+    AND s.mes = p_mes
+    AND s.status IN ('proximo', 'excedido')
+  ON CONFLICT (usuario_id, chave) DO NOTHING;
