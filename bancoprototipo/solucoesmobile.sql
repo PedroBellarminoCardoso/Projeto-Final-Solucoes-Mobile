@@ -243,3 +243,15 @@ BEGIN
   IF v_id IS NOT NULL THEN
     RETURN v_id;
   END IF;
+
+SELECT id INTO v_origem
+    FROM orcamentos_mensais
+   WHERE usuario_id = p_usuario AND (ano, mes) < (p_ano, p_mes)
+   ORDER BY ano DESC, mes DESC
+   LIMIT 1;
+
+IF v_origem IS NOT NULL THEN
+    INSERT INTO orcamentos_mensais (usuario_id, ano, mes, limite_geral)
+    SELECT usuario_id, p_ano, p_mes, limite_geral
+      FROM orcamentos_mensais WHERE id = v_origem
+    RETURNING id INTO v_id;
