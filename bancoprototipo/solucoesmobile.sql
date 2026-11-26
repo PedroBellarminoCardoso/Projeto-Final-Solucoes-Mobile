@@ -200,3 +200,12 @@ SELECT
   oc.limite - COALESCE(g.total, 0)                       AS restante,
   ROUND(100 * COALESCE(g.total, 0) / oc.limite, 1)       AS percentual,
   CASE
+    WHEN COALESCE(g.total, 0) >  oc.limite        THEN 'excedido'
+    WHEN COALESCE(g.total, 0) >= 0.85 * oc.limite THEN 'proximo'
+  END AS status
+FROM orcamentos_mensais o
+JOIN orcamentos_categoria oc ON oc.orcamento_id = o.id
+JOIN categorias c            ON c.id = oc.categoria_id
+LEFT JOIN vw_gastos_categoria_mensal g
+       ON g.usuario_id = o.usuario_id AND g.ano = o.ano AND g.mes = o.mes
+      AND g.categoria_id = oc.categoria_id;
