@@ -304,3 +304,23 @@ BEGIN
     AND s.mes = p_mes
     AND s.status IN ('proximo', 'excedido')
   ON CONFLICT (usuario_id, chave) DO NOTHING;
+INSERT INTO notificacoes (usuario_id, chave, tipo, titulo, mensagem, categoria_id, transacao_id)
+  SELECT
+    t.usuario_id,
+    'receita_recebida:' || t.id::TEXT,
+    'receita_recebida'::tipo_notificacao,
+    c.nome || ' entrou no saldo!',
+    fn_brl(t.valor) || ' registrados em ' || t.descricao || '. Boa hora para separar suas prioridades.',
+    t.categoria_id,
+    t.id
+  FROM transacoes t
+  JOIN categorias c ON c.id = t.categoria_id
+  WHERE t.usuario_id = p_usuario
+    AND t.tipo = 'receita'
+    AND t.data_transacao >= make_date(p_ano, p_mes, 1)
+    AND t.data_transacao <  make_date(p_ano, p_mes, 1) + INTERVAL '1 month'
+  ORDER BY t.data_transacao DESC, t.id DESC
+  LIMIT 1
+  ON CONFLICT (usuario_id, chave) DO NOTHING;
+END;
+$$;
