@@ -336,3 +336,7 @@ BEGIN
   RETURN NULL;
 END;
 $$;
+
+CREATE TRIGGER trg_transacoes_notificar
+  AFTER INSERT OR UPDATE OF valor, categoria_id, tipo, data_transacao ON transacoes
+  FOR EACH ROW EXECUTE FUNCTION fn_trg_notificar_transacao();
