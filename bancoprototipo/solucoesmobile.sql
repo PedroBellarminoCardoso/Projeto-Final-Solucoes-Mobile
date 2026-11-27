@@ -324,3 +324,15 @@ INSERT INTO notificacoes (usuario_id, chave, tipo, titulo, mensagem, categoria_i
   ON CONFLICT (usuario_id, chave) DO NOTHING;
 END;
 $$;
+
+CREATE FUNCTION fn_trg_notificar_transacao() RETURNS trigger
+LANGUAGE plpgsql AS $$
+BEGIN
+  PERFORM fn_gerar_notificacoes(
+    NEW.usuario_id,
+    EXTRACT(YEAR  FROM NEW.data_transacao)::INTEGER,
+    EXTRACT(MONTH FROM NEW.data_transacao)::INTEGER
+  );
+  RETURN NULL;
+END;
+$$;
