@@ -340,3 +340,19 @@ $$;
 CREATE TRIGGER trg_transacoes_notificar
   AFTER INSERT OR UPDATE OF valor, categoria_id, tipo, data_transacao ON transacoes
   FOR EACH ROW EXECUTE FUNCTION fn_trg_notificar_transacao();
+
+INSERT INTO categorias (usuario_id, nome, tipo, icone, cor) VALUES
+  (NULL, 'Alimentação',   'despesa', 'coffee',      '#9B76F2'),
+  (NULL, 'Transporte',    'despesa', 'navigation',  '#4C9990'),
+  (NULL, 'Moradia',       'despesa', 'home',        '#6D38E8'),
+  (NULL, 'Estudos',       'despesa', 'book-open',   '#E4B15B'),
+  (NULL, 'Lazer',         'despesa', 'film',        '#6AB7A2'),
+  (NULL, 'Assinaturas',   'despesa', 'refresh-cw',  '#B197FC'),
+  (NULL, 'Saúde',         'despesa', 'heart',       '#D96B6B'),
+  (NULL, 'Outros',        'despesa', 'grid',        '#7B7992'),
+  (NULL, 'Bolsa',         'receita', 'award',       '#1C9B68'),
+  (NULL, 'Estágio',       'receita', 'briefcase',   '#6D38E8'),
+  (NULL, 'Apoio familiar','receita', 'heart',       '#4C9990'),
+  (NULL, 'Freelance',     'receita', 'laptop',      '#E4B15B'),
+  (NULL, 'Salário',       'receita', 'dollar-sign', '#1C9B68'),
+  (NULL, 'Outros',        'receita', 'plus-circle', '#7B7992');
